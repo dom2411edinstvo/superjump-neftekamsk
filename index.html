@@ -1262,14 +1262,24 @@
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: var(--green);
-            color: var(--bg-dark);
             padding: 18px 35px;
             border-radius: 15px;
             font-weight: 600;
             opacity: 0;
             transition: all 0.4s;
             z-index: 1000;
+            max-width: 90%;
+            text-align: center;
+        }
+        
+        .toast.success {
+            background: var(--green);
+            color: var(--bg-dark);
+        }
+        
+        .toast.error {
+            background: #ef4444;
+            color: white;
         }
         
         .toast.show {
@@ -1350,7 +1360,7 @@
 
     <!-- Certificate Modal -->
     <div class="cert-modal" id="certModal" onclick="closeCertModal()">
-        <button class="cert-modal-close" onclick="closeCertModal()">&times;</button>
+        <button class="cert-modal-close" onclick="closeCertModal()">×</button>
         <img id="certModalImg" src="" alt="Сертификат">
     </div>
 
@@ -1604,49 +1614,42 @@
                     <div class="certificates">
                         <h4>Сертификаты и достижения</h4>
                         <div class="cert-grid">
-                            <!-- Сертификат 1 -->
                             <div class="cert-card" onclick="openCertModal('IMG/cert.jpg')">
                                 <div class="cert-image">
                                     <img src="IMG/cert.jpg" alt="Сертификат">
                                 </div>
                                 <div class="cert-title">Мастер интеллект-тренер Super Jump</div>
                             </div>
-                            <!-- Сертификат 2 -->
                             <div class="cert-card" onclick="openCertModal('IMG/cert-1.jpg')">
                                 <div class="cert-image">
                                     <img src="IMG/cert-1.jpg" alt="Сертификат">
                                 </div>
                                 <div class="cert-title">1 ранг Super Jump</div>
                             </div>
-                            <!-- Сертификат 3 -->
                             <div class="cert-card" onclick="openCertModal('IMG/cert-2.jpg')">
                                 <div class="cert-image">
                                     <img src="IMG/cert-2.jpg" alt="Сертификат">
                                 </div>
                                 <div class="cert-title">2 ранг Super Jump</div>
                             </div>
-                            <!-- Сертификат 4 -->
                             <div class="cert-card" onclick="openCertModal('IMG/cert-3.jpg')">
                                 <div class="cert-image">
                                     <img src="IMG/cert-3.jpg" alt="Сертификат">
                                 </div>
                                 <div class="cert-title">Личное окружение лидеров Владимира Довганя</div>
                             </div>
-                            <!-- Сертификат 5 -->
                             <div class="cert-card" onclick="openCertModal('IMG/cert-4.jpg')">
                                 <div class="cert-image">
                                     <img src="IMG/cert-4.jpg" alt="Сертификат">
                                 </div>
                                 <div class="cert-title">Легенда Super Jump</div>
                             </div>
-                            <!-- Сертификат 6 -->
                             <div class="cert-card" onclick="openCertModal('IMG/cert-5.jpg')">
                                 <div class="cert-image">
                                     <img src="IMG/cert-5.jpg" alt="Сертификат">
                                 </div>
                                 <div class="cert-title">Решительный лидер железной воли</div>
                             </div>
-                            <!-- Сертификат 7 -->
                             <div class="cert-card" onclick="openCertModal('IMG/cert-6.jpg')">
                                 <div class="cert-image">
                                     <img src="IMG/cert-6.jpg" alt="Сертификат">
@@ -1711,19 +1714,16 @@
                     </div>
                     
                     <div class="social-links">
-                        <!-- Telegram -->
                         <a href="https://t.me/AiratNikiforov" target="_blank" class="social-link" title="Telegram">
                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
                             </svg>
                         </a>
-                        <!-- VKontakte -->
                         <a href="https://vk.com/sj102an" target="_blank" class="social-link" title="ВКонтакте">
                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4 8.893 4 8.455c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/>
                             </svg>
                         </a>
-                        <!-- WhatsApp -->
                         <a href="https://wa.me/79174971726" target="_blank" class="social-link" title="WhatsApp">
                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -1785,19 +1785,16 @@
                 </div>
                 <p class="footer-text">Интеллект-тренировки онлайн • Башкортостан, Нефтекамск</p>
                 <div class="footer-social">
-                    <!-- Telegram -->
                     <a href="https://t.me/AiratNikiforov" target="_blank" class="footer-social-link" title="Telegram">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
                         </svg>
                     </a>
-                    <!-- VKontakte -->
                     <a href="https://vk.com/sj102an" target="_blank" class="footer-social-link" title="ВКонтакте">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4 8.893 4 8.455c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.204.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/>
                         </svg>
                     </a>
-                    <!-- WhatsApp -->
                     <a href="https://wa.me/79174971726" target="_blank" class="footer-social-link" title="WhatsApp">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -1817,10 +1814,10 @@
 
     <script>
         // =====================================================
-        // НАСТРОЙКИ TELEGRAM БОТА — ВСТАВЬТЕ СВОИ ДАННЫЕ ЗДЕСЬ
+        // НАСТРОЙКИ TELEGRAM БОТА
         // =====================================================
-        const TELEGRAM_BOT_TOKEN = 'ВАШ_ТОКЕН_БОТА';  // Например: '7123456789:AAHxxxxxxxxxxxxxxxxxxx'
-        const TELEGRAM_CHAT_ID = 'ВАШ_CHAT_ID';       // Например: '123456789'
+        const TELEGRAM_BOT_TOKEN = '8626623892:AAG8zTTZ4HnT77rBml2fzDFyqfqYTifTBkA';
+        const TELEGRAM_CHAT_ID = '752397785';
         // =====================================================
 
         // Preloader
@@ -1876,20 +1873,16 @@
             const date = now.toLocaleDateString('ru-RU');
             const time = now.toLocaleTimeString('ru-RU');
             
-            const message = `
-🔔 *НОВАЯ ЗАЯВКА с сайта Super Jump!*
+            let message = '🔔 НОВАЯ ЗАЯВКА с сайта Super Jump!\n\n';
+            message += '👤 Имя: ' + data.name + '\n';
+            message += '📱 Телефон: ' + data.phone + '\n';
+            message += '📧 Email: ' + (data.email || 'Не указан') + '\n';
+            message += '🏙️ Город: ' + (data.city || 'Не указан') + '\n';
+            message += '🕐 Удобное время: ' + (data.time || 'Не выбрано') + '\n';
+            message += '💬 Сообщение: ' + (data.message || 'Нет сообщения') + '\n\n';
+            message += '📅 Дата: ' + date + ', ' + time;
 
-👤 *Имя:* ${data.name}
-📱 *Телефон:* ${data.phone}
-📧 *Email:* ${data.email || 'Не указан'}
-🏙️ *Город:* ${data.city || 'Не указан'}
-🕐 *Удобное время:* ${data.time || 'Не выбрано'}
-💬 *Сообщение:* ${data.message || 'Нет сообщения'}
-
-📅 *Дата:* ${date}, ${time}
-            `.trim();
-
-            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            const url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
             
             const response = await fetch(url, {
                 method: 'POST',
@@ -1899,7 +1892,7 @@
                 body: JSON.stringify({
                     chat_id: TELEGRAM_CHAT_ID,
                     text: message,
-                    parse_mode: 'Markdown'
+                    parse_mode: 'HTML'
                 })
             });
 
@@ -1915,12 +1908,12 @@
             
             // Собираем данные формы
             const data = {
-                name: document.getElementById('nameInput').value,
-                phone: document.getElementById('phoneInput').value,
-                email: document.getElementById('emailInput').value,
-                city: document.getElementById('cityInput').value,
+                name: document.getElementById('nameInput').value.trim(),
+                phone: document.getElementById('phoneInput').value.trim(),
+                email: document.getElementById('emailInput').value.trim(),
+                city: document.getElementById('cityInput').value.trim(),
                 time: document.getElementById('timeInput').value,
-                message: document.getElementById('messageInput').value
+                message: document.getElementById('messageInput').value.trim()
             };
 
             // Проверяем заполнены ли обязательные поля
@@ -1934,23 +1927,15 @@
             submitBtn.textContent = 'ОТПРАВКА...';
 
             try {
-                // Проверяем настроен ли бот
-                if (TELEGRAM_BOT_TOKEN === 'ВАШ_ТОКЕН_БОТА' || TELEGRAM_CHAT_ID === 'ВАШ_CHAT_ID') {
-                    // Бот не настроен - показываем успех без отправки
+                // Отправляем в Telegram
+                const success = await sendToTelegram(data);
+                
+                if (success) {
                     showToast('Заявка отправлена! Айрат свяжется с вами в ближайшее время.', 'success');
                     document.getElementById('contactForm').reset();
                     document.getElementById('phoneInput').value = '+7 ';
                 } else {
-                    // Отправляем в Telegram
-                    const success = await sendToTelegram(data);
-                    
-                    if (success) {
-                        showToast('Заявка отправлена! Айрат свяжется с вами в ближайшее время.', 'success');
-                        document.getElementById('contactForm').reset();
-                        document.getElementById('phoneInput').value = '+7 ';
-                    } else {
-                        showToast('Ошибка отправки. Позвоните по телефону.', 'error');
-                    }
+                    showToast('Ошибка отправки. Позвоните по телефону.', 'error');
                 }
             } catch (error) {
                 console.error('Ошибка:', error);
@@ -1963,10 +1948,10 @@
         }
 
         // Toast
-        function showToast(msg, type = 'success') {
+        function showToast(msg, type) {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
-            toast.className = 'toast ' + type;
+            toast.className = 'toast ' + (type || 'success');
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 4000);
         }
