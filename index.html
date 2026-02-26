@@ -1818,7 +1818,42 @@
         // =====================================================
         var BOT_TOKEN = '8626623892:AAG8zTTZ4HnT77rBml2fzDFyqfqYTifTBkA';
         var CHAT_ID = '752397785';
+        var chatIdDetected = false;
         // =====================================================
+
+        // Автоопределение Chat ID при загрузке страницы
+        (function detectChatId() {
+            var url = 'https://api.telegram.org/bot' + BOT_TOKEN + '/getUpdates?limit=20&allowed_updates=["message"]';
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.timeout = 5000;
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    try {
+                        var data = JSON.parse(xhr.responseText);
+                        if (data.ok && data.result && data.result.length > 0) {
+                            for (var i = data.result.length - 1; i >= 0; i--) {
+                                var upd = data.result[i];
+                                var msg = upd.message;
+                                if (msg && msg.chat && msg.chat.id) {
+                                    CHAT_ID = String(msg.chat.id);
+                                    chatIdDetected = true;
+                                    console.log('Chat ID определён автоматически:', CHAT_ID);
+                                    break;
+                                }
+                            }
+                        }
+                        if (!chatIdDetected) {
+                            console.warn('Не удалось определить Chat ID. Отправьте /start боту @superjump_airat_bot');
+                        }
+                    } catch(e) {
+                        console.error('Ошибка парсинга getUpdates:', e);
+                    }
+                }
+            };
+            xhr.onerror = function() {};
+            xhr.send();
+        })();
 
         // Preloader — убираем мгновенно
         document.addEventListener('DOMContentLoaded', function() {
@@ -1862,7 +1897,7 @@
             if (e.key === 'Escape') closeCertModal();
         });
 
-        // Отправка в Telegram через GET-запрос (самый надёжный способ)
+        // Отправка в Telegram
         function sendToTelegram(data, callback) {
             var now = new Date();
             var date = now.toLocaleDateString('ru-RU');
@@ -1882,12 +1917,15 @@
                 + '?chat_id=' + encodeURIComponent(CHAT_ID)
                 + '&text=' + encodeURIComponent(text);
 
+            console.log('Отправка в Telegram, chat_id:', CHAT_ID);
+
             var xhr = new XMLHttpRequest();
             xhr.open('GET', url, true);
             xhr.timeout = 10000;
 
             xhr.onload = function() {
                 if (xhr.status === 200) {
+                    console.log('Успешно отправлено!');
                     callback(true, null);
                 } else {
                     var errMsg = 'HTTP ' + xhr.status;
@@ -1895,7 +1933,15 @@
                         var resp = JSON.parse(xhr.responseText);
                         errMsg = resp.description || errMsg;
                     } catch(e) {}
-                    console.error('Telegram error:', xhr.responseText);
+                    console.error('Telegram error:', xhr.status, xhr.responseText);
+
+                    // Если chat not found — пробуем переопределить chat_id и повторить
+                    if (errMsg.indexOf('chat not found') !== -1 && !data._retried) {
+                        console.log('Chat not found — пробуем getUpdates...');
+                        redetectAndRetry(data, callback);
+                        return;
+                    }
+
                     callback(false, errMsg);
                 }
             };
@@ -1910,6 +1956,38 @@
                 callback(false, 'Превышено время ожидания');
             };
 
+            xhr.send();
+        }
+
+        // Повторная попытка с переопределением chat_id
+        function redetectAndRetry(data, callback) {
+            var url = 'https://api.telegram.org/bot' + BOT_TOKEN + '/getUpdates?limit=20';
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.timeout = 5000;
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    try {
+                        var resp = JSON.parse(xhr.responseText);
+                        if (resp.ok && resp.result && resp.result.length > 0) {
+                            for (var i = resp.result.length - 1; i >= 0; i--) {
+                                var msg = resp.result[i].message;
+                                if (msg && msg.chat && msg.chat.id) {
+                                    CHAT_ID = String(msg.chat.id);
+                                    console.log('Новый Chat ID:', CHAT_ID);
+                                    data._retried = true;
+                                    sendToTelegram(data, callback);
+                                    return;
+                                }
+                            }
+                        }
+                    } catch(e) {}
+                }
+                callback(false, 'Бот не активирован. Отправьте /start боту @superjump_airat_bot в Telegram');
+            };
+            xhr.onerror = function() {
+                callback(false, 'Нет соединения с интернетом');
+            };
             xhr.send();
         }
 
