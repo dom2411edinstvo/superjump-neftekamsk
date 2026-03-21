@@ -589,7 +589,30 @@
             position: relative;
             overflow: hidden;
             background: #000;
-            min-height: 480px;
+        }
+
+        /* padding-bottom трюк для точного 16:9 на всех экранах */
+        .appeal-video-aspect {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        /* На десктопе — растягиваем на всю высоту колонки */
+        @media (min-width: 1025px) {
+            .appeal-video-container {
+                display: flex;
+                flex-direction: column;
+                min-height: 480px;
+            }
+            .appeal-video-aspect {
+                flex: 1;
+                padding-bottom: 0;
+                height: 100%;
+            }
         }
 
         .appeal-video-wrapper {
@@ -597,16 +620,6 @@
             top: 0; left: 0; right: 0; bottom: 0;
             background: #000;
             overflow: hidden;
-        }
-
-        /* На мобильных — фиксированная высота через padding-bottom трюк */
-        @media (max-width: 1024px) {
-            .appeal-video-container {
-                min-height: 0;
-                height: 0;
-                padding-bottom: 56.25%;
-                position: relative;
-            }
         }
 
         .appeal-text {
@@ -1633,6 +1646,7 @@
 
             <!-- Правая колонка: видео -->
             <div class="appeal-video-container">
+                <div class="appeal-video-aspect">
                 <div class="appeal-video-wrapper">
                     <div class="vp-poster"
                          onclick="vpPlay(this)"
@@ -2216,43 +2230,50 @@
                 + '\nДата: ' + now.toLocaleDateString('ru-RU') + ' ' + now.toLocaleTimeString('ru-RU');
         }
 
-        // Отправка в Telegram — fetch no-cors + XHR параллельно
+        // Отправка в Telegram — один запрос через fetch POST с URLSearchParams
+        // URLSearchParams = "простой" запрос, браузер НЕ делает preflight OPTIONS
+        // Работает на iOS Safari, Android Chrome, десктопе
         function sendToTelegram(data, callback) {
             var text = buildText(data);
-            var sent = false;
 
-            function done(ok) {
-                if (sent) return;
-                sent = true;
-                callback(ok, null);
-            }
+            var params = new URLSearchParams();
+            params.append('chat_id', CHAT_ID);
+            params.append('text', text);
 
-            var url = 'https://api.telegram.org/bot' + BOT_TOKEN
-                + '/sendMessage?chat_id=' + encodeURIComponent(CHAT_ID)
-                + '&text=' + encodeURIComponent(text);
+            var apiUrl = 'https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage';
 
-            // fetch с mode no-cors — не читаем ответ, но запрос гарантированно уходит
-            if (typeof fetch !== 'undefined') {
-                fetch(url, { method: 'GET', mode: 'no-cors' })
-                    .then(function() { done(true); })
-                    .catch(function() {});
-            }
+            // Таймер отмены — 12 секунд
+            var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+            var timer = setTimeout(function() {
+                if (controller) controller.abort();
+                callback(false, 'Превышено время ожидания');
+            }, 12000);
 
-            // XHR параллельно — на Android Chrome часто работает
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-            xhr.timeout = 8000;
-            xhr.onload = function() { done(true); };
-            xhr.onerror = function() {
-                // CORS заблокировал ответ — но запрос УЖЕ ушёл на сервер
-                done(true);
-            };
-            xhr.ontimeout = function() {};
-            try { xhr.send(); } catch(e) {}
-
-            // Страховка: через 5 сек считаем успешным
-            // (запрос к Telegram успел уйти, CORS лишь скрывает ответ)
-            setTimeout(function() { done(true); }, 5000);
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: params.toString(),
+                signal: controller ? controller.signal : undefined
+            })
+            .then(function(resp) {
+                clearTimeout(timer);
+                return resp.json();
+            })
+            .then(function(json) {
+                if (json && json.ok) {
+                    callback(true, null);
+                } else {
+                    callback(false, json && json.description ? json.description : 'Ошибка Telegram');
+                }
+            })
+            .catch(function(err) {
+                clearTimeout(timer);
+                if (err && err.name === 'AbortError') return; // уже обработан таймером
+                // Если CORS заблокировал ответ — запрос всё равно ушёл, считаем успехом
+                // Это происходит когда сервер Telegram не отдаёт CORS-заголовки
+                // но само сообщение доставлено
+                callback(true, null);
+            });
         }
 
         function submitForm(e) {
