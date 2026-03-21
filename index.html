@@ -1351,6 +1351,8 @@
             font-family: inherit;
             font-size: 16px;
             transition: border-color 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
         }
         
         .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.5); }
@@ -1373,9 +1375,14 @@
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .form-submit:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4); }
+        .form-submit:active { transform: translateY(0); }
+        .form-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
         .form-note { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 15px; }
         
         /* Footer */
@@ -1529,8 +1536,8 @@
     </div>
 
     <!-- Certificate Modal -->
-    <div class="cert-modal" id="certModal" onclick="closeCertModal()">
-        <button class="cert-modal-close" onclick="closeCertModal()">×</button>
+    <div class="cert-modal" id="certModal">
+        <button class="cert-modal-close" aria-label="Закрыть">×</button>
         <img id="certModalImg" src="" alt="Сертификат интеллект-тренера Super Jump Нефтекамск">
     </div>
 
@@ -1566,7 +1573,7 @@
                 <a href="#contact">КОНТАКТЫ</a>
             </nav>
             <a href="#contact" class="header-btn">ЗАПИСАТЬСЯ</a>
-            <button class="menu-btn" onclick="toggleMenu()">
+            <button class="menu-btn" id="menuBtn" aria-label="Меню">
                 <span></span><span></span><span></span>
             </button>
         </div>
@@ -1574,12 +1581,12 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#what" onclick="toggleMenu()">ЧТО ТАКОЕ</a>
-        <a href="#results" onclick="toggleMenu()">РЕЗУЛЬТАТЫ</a>
-        <a href="#who" onclick="toggleMenu()">КОМУ ПОДХОДИТ</a>
-        <a href="#reviews" onclick="toggleMenu()">ОТЗЫВЫ</a>
-        <a href="#about" onclick="toggleMenu()">ТРЕНЕР</a>
-        <a href="#contact" onclick="toggleMenu()">ЗАПИСАТЬСЯ</a>
+        <a href="#what">ЧТО ТАКОЕ</a>
+        <a href="#results">РЕЗУЛЬТАТЫ</a>
+        <a href="#who">КОМУ ПОДХОДИТ</a>
+        <a href="#reviews">ОТЗЫВЫ</a>
+        <a href="#about">ТРЕНЕР</a>
+        <a href="#contact">ЗАПИСАТЬСЯ</a>
     </div>
 
     <!-- Hero -->
@@ -1647,20 +1654,20 @@
             <!-- Правая колонка: видео -->
             <div class="appeal-video-container">
                 <div class="appeal-video-aspect">
-                <div class="appeal-video-wrapper">
-                    <div class="vp-poster"
-                         onclick="vpPlay(this)"
-                         data-src="https://rutube.ru/play/embed/233717dc16e5ca38999d68231be51772/?p=O9a-GqLWJcM1tPG2ZeafrQ&autoplay=1&loop=0">
-                        <div class="vp-poster-fallback">
-                            <div class="vp-poster-fallback-icon">
+                    <div class="appeal-video-wrapper">
+                        <div class="vp-poster"
+                             data-src="https://rutube.ru/play/embed/233717dc16e5ca38999d68231be51772/?p=O9a-GqLWJcM1tPG2ZeafrQ&autoplay=1&loop=0">
+                            <div class="vp-poster-fallback">
+                                <div class="vp-poster-fallback-icon">
+                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
+                            <div class="vp-play-btn">
                                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
                         </div>
-                        <div class="vp-play-btn">
-                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                        </div>
+                        <div class="vp-iframe-wrap"></div>
                     </div>
-                    <div class="vp-iframe-wrap"></div>
                 </div>
             </div>
 
@@ -1795,7 +1802,7 @@
 
                 <div class="review-card">
                     <div class="review-video">
-                        <div class="vp-poster" onclick="vpPlay(this)"
+                        <div class="vp-poster"
                              data-src="https://rutube.ru/play/embed/2d4c91ded9aa2246c7c7fdf7ab4219f4/?p=NRqhaJgqhSzr6x-LVazrJA&autoplay=1&loop=0">
                             <div class="vp-poster-fallback">
                                 <div class="vp-poster-fallback-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
@@ -1812,7 +1819,7 @@
 
                 <div class="review-card">
                     <div class="review-video">
-                        <div class="vp-poster" onclick="vpPlay(this)"
+                        <div class="vp-poster"
                              data-src="https://rutube.ru/play/embed/f92a4c0a795d70197ef68c9f2014361d/?p=xmME7wfDPGbgP17Gw1RFYw&autoplay=1&loop=0">
                             <div class="vp-poster-fallback">
                                 <div class="vp-poster-fallback-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
@@ -1829,7 +1836,7 @@
 
                 <div class="review-card">
                     <div class="review-video">
-                        <div class="vp-poster" onclick="vpPlay(this)"
+                        <div class="vp-poster"
                              data-src="https://rutube.ru/play/embed/594f1218e0b257735dfeab2a492a80cb/?p=jAk1irdP7IHK0iNoNpax9A&autoplay=1&loop=0">
                             <div class="vp-poster-fallback">
                                 <div class="vp-poster-fallback-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
@@ -1846,7 +1853,7 @@
 
                 <div class="review-card">
                     <div class="review-video">
-                        <div class="vp-poster" onclick="vpPlay(this)"
+                        <div class="vp-poster"
                              data-src="https://rutube.ru/play/embed/09914fdf882efef8976226027b735fde/?p=_WX_FXXEO8URPl8QZ_3KWA&autoplay=1&loop=0">
                             <div class="vp-poster-fallback">
                                 <div class="vp-poster-fallback-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
@@ -1895,31 +1902,31 @@
                     <div class="certificates">
                         <h4>Сертификаты и достижения</h4>
                         <div class="cert-grid">
-                            <div class="cert-card" onclick="openCertModal('IMG/cert.jpg')">
+                            <div class="cert-card" data-cert="IMG/cert.jpg">
                                 <div class="cert-image"><img src="IMG/cert.jpg" alt="Сертификат мастер интеллект-тренер Super Jump" loading="lazy"></div>
                                 <div class="cert-title">Мастер интеллект-тренер Super Jump</div>
                             </div>
-                            <div class="cert-card" onclick="openCertModal('IMG/cert-1.jpg')">
+                            <div class="cert-card" data-cert="IMG/cert-1.jpg">
                                 <div class="cert-image"><img src="IMG/cert-1.jpg" alt="Сертификат 1 ранг Super Jump" loading="lazy"></div>
                                 <div class="cert-title">1 ранг Super Jump</div>
                             </div>
-                            <div class="cert-card" onclick="openCertModal('IMG/cert-2.jpg')">
+                            <div class="cert-card" data-cert="IMG/cert-2.jpg">
                                 <div class="cert-image"><img src="IMG/cert-2.jpg" alt="Сертификат 2 ранг Super Jump" loading="lazy"></div>
                                 <div class="cert-title">2 ранг Super Jump</div>
                             </div>
-                            <div class="cert-card" onclick="openCertModal('IMG/cert-3.jpg')">
+                            <div class="cert-card" data-cert="IMG/cert-3.jpg">
                                 <div class="cert-image"><img src="IMG/cert-3.jpg" alt="Сертификат личное окружение лидеров Владимира Довганя" loading="lazy"></div>
                                 <div class="cert-title">Личное окружение лидеров Владимира Довганя</div>
                             </div>
-                            <div class="cert-card" onclick="openCertModal('IMG/cert-4.jpg')">
+                            <div class="cert-card" data-cert="IMG/cert-4.jpg">
                                 <div class="cert-image"><img src="IMG/cert-4.jpg" alt="Сертификат Легенда Super Jump" loading="lazy"></div>
                                 <div class="cert-title">Легенда Super Jump</div>
                             </div>
-                            <div class="cert-card" onclick="openCertModal('IMG/cert-5.jpg')">
+                            <div class="cert-card" data-cert="IMG/cert-5.jpg">
                                 <div class="cert-image"><img src="IMG/cert-5.jpg" alt="Сертификат Решительный лидер железной воли" loading="lazy"></div>
                                 <div class="cert-title">Решительный лидер железной воли</div>
                             </div>
-                            <div class="cert-card" onclick="openCertModal('IMG/cert-6.jpg')">
+                            <div class="cert-card" data-cert="IMG/cert-6.jpg">
                                 <div class="cert-image"><img src="IMG/cert-6.jpg" alt="Дополнительный сертификат Super Jump" loading="lazy"></div>
                                 <div class="cert-title">Дополнительный сертификат</div>
                             </div>
@@ -1993,30 +2000,30 @@
                     </div>
                 </div>
                 
-                <form class="contact-form" id="contactForm" onsubmit="submitForm(event)">
+                <form class="contact-form" id="contactForm" novalidate>
                     <h4>Записаться на занятие</h4>
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Имя *</label>
-                            <input type="text" id="nameInput" placeholder="Ваше имя" required>
+                            <label for="nameInput">Имя *</label>
+                            <input type="text" id="nameInput" placeholder="Ваше имя" autocomplete="name" inputmode="text">
                         </div>
                         <div class="form-group">
-                            <label>Телефон *</label>
-                            <input type="tel" id="phoneInput" placeholder="+7 (___) ___-__-__" value="+7 " required>
+                            <label for="phoneInput">Телефон *</label>
+                            <input type="tel" id="phoneInput" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="emailInput" placeholder="email@example.com">
+                            <label for="emailInput">Email</label>
+                            <input type="email" id="emailInput" placeholder="email@example.com" autocomplete="email" inputmode="email">
                         </div>
                         <div class="form-group">
-                            <label>Город</label>
-                            <input type="text" id="cityInput" placeholder="Нефтекамск">
+                            <label for="cityInput">Город</label>
+                            <input type="text" id="cityInput" placeholder="Нефтекамск" autocomplete="address-level2" inputmode="text">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Удобное время</label>
+                        <label for="timeInput">Удобное время</label>
                         <select id="timeInput">
                             <option value="">Выберите время</option>
                             <option value="Утро (9:00 - 12:00)">Утро (9:00 - 12:00)</option>
@@ -2026,7 +2033,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Сообщение</label>
+                        <label for="messageInput">Сообщение</label>
                         <textarea id="messageInput" placeholder="Расскажите о себе или задайте вопрос..."></textarea>
                     </div>
                     <button type="submit" class="form-submit" id="submitBtn">ОТПРАВИТЬ ЗАЯВКУ</button>
@@ -2106,23 +2113,44 @@
             document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Mobile menu
+        // Mobile menu — через addEventListener вместо inline onclick
         function toggleMenu() {
             document.getElementById('mobileMenu').classList.toggle('active');
-            document.querySelector('.menu-btn').classList.toggle('active');
+            document.getElementById('menuBtn').classList.toggle('active');
         }
 
-        // Certificate Modal
+        document.getElementById('menuBtn').addEventListener('click', toggleMenu);
+
+        // Ссылки в мобильном меню — закрывать при клике
+        document.querySelectorAll('#mobileMenu a').forEach(function(link) {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Certificate Modal — через addEventListener вместо inline onclick
+        var certModal = document.getElementById('certModal');
+        var certModalImg = document.getElementById('certModalImg');
+
         function openCertModal(imgSrc) {
-            document.getElementById('certModalImg').src = imgSrc;
-            document.getElementById('certModal').classList.add('active');
+            certModalImg.src = imgSrc;
+            certModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closeCertModal() {
-            document.getElementById('certModal').classList.remove('active');
+            certModal.classList.remove('active');
             document.body.style.overflow = '';
         }
+
+        certModal.addEventListener('click', closeCertModal);
+        certModal.querySelector('.cert-modal-close').addEventListener('click', closeCertModal);
+
+        // Делегирование событий для cert-card
+        document.querySelectorAll('.cert-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                var src = this.getAttribute('data-cert');
+                if (src) openCertModal(src);
+            });
+        });
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeCertModal();
@@ -2216,21 +2244,36 @@
             window.addEventListener('message', onMsg, false);
         }
 
+        // Привязка кликов для видео-постеров через addEventListener (для мобильных)
+        document.querySelectorAll('.vp-poster').forEach(function(poster) {
+            poster.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                vpPlay(this);
+            });
+        });
+
         // =====================================================
-        // TELEGRAM FORM
+        // TELEGRAM FORM — полностью переписана для мобильных
         // =====================================================
         function buildText(data) {
             var now = new Date();
-            return 'НОВАЯ ЗАЯВКА Super Jump!\n\nИмя: ' + data.name
-                + '\nТелефон: ' + data.phone
-                + '\nEmail: ' + (data.email || 'Не указан')
-                + '\nГород: ' + (data.city || 'Не указан')
-                + '\nВремя: ' + (data.time || 'Не выбрано')
-                + '\nСообщение: ' + (data.message || 'Нет')
-                + '\nДата: ' + now.toLocaleDateString('ru-RU') + ' ' + now.toLocaleTimeString('ru-RU');
+            var lines = [
+                '🔔 НОВАЯ ЗАЯВКА Super Jump!',
+                '',
+                '👤 Имя: ' + data.name,
+                '📱 Телефон: ' + data.phone,
+                '📧 Email: ' + (data.email || 'Не указан'),
+                '🏙 Город: ' + (data.city || 'Не указан'),
+                '🕐 Время: ' + (data.time || 'Не выбрано'),
+                '💬 Сообщение: ' + (data.message || 'Нет'),
+                '',
+                '📅 Дата: ' + now.toLocaleDateString('ru-RU') + ' ' + now.toLocaleTimeString('ru-RU')
+            ];
+            return lines.join('\n');
         }
 
-        // Отправка через цепочку прокси — работает на iOS/Android/десктопе
+        // Универсальная отправка через POST (работает на iOS/Android/Desktop)
         function sendToTelegram(data, callback) {
             var text = buildText(data);
             var called = false;
@@ -2241,163 +2284,316 @@
                 callback(ok, err);
             }
 
-            var tgBase = 'https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage';
-            var qs = '?chat_id=' + encodeURIComponent(CHAT_ID) + '&text=' + encodeURIComponent(text);
-            var tgUrl = tgBase + qs;
-
-            // Глобальный таймаут 20 сек
+            // Глобальный таймаут 25 сек
             var globalTimer = setTimeout(function() {
                 done(false, 'Превышено время ожидания');
-            }, 20000);
+            }, 25000);
 
             function finish(ok, err) {
                 clearTimeout(globalTimer);
                 done(ok, err);
             }
 
-            // Шаг 1: прямой запрос (работает на десктопе)
-            function step1() {
-                fetch(tgUrl, { method: 'GET', mode: 'cors' })
-                .then(function(r) { return r.json(); })
-                .then(function(j) {
-                    if (j && j.ok) { finish(true, null); }
-                    else { step2(); }
-                })
-                .catch(function() { step2(); });
+            var apiUrl = 'https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage';
+
+            // Метод 1: fetch POST с JSON body (самый надёжный)
+            function method1() {
+                try {
+                    fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: CHAT_ID,
+                            text: text,
+                            parse_mode: ''
+                        })
+                    })
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(result) {
+                        if (result && result.ok) {
+                            finish(true, null);
+                        } else {
+                            method2();
+                        }
+                    })
+                    .catch(function() {
+                        method2();
+                    });
+                } catch(e) {
+                    method2();
+                }
             }
 
-            // Шаг 2: через allorigins.win (работает на мобильных)
-            function step2() {
-                var proxy1 = 'https://api.allorigins.win/get?url=' + encodeURIComponent(tgUrl);
-                fetch(proxy1, { method: 'GET' })
-                .then(function(r) { return r.json(); })
-                .then(function(j) {
-                    if (j && j.contents) {
-                        try {
-                            var tg = JSON.parse(j.contents);
-                            if (tg && tg.ok) { finish(true, null); return; }
-                        } catch(e) {}
-                    }
-                    step3();
-                })
-                .catch(function() { step3(); });
+            // Метод 2: fetch POST с FormData (лучше работает на старых мобильных)
+            function method2() {
+                try {
+                    var formData = new FormData();
+                    formData.append('chat_id', CHAT_ID);
+                    formData.append('text', text);
+
+                    fetch(apiUrl, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(result) {
+                        if (result && result.ok) {
+                            finish(true, null);
+                        } else {
+                            method3();
+                        }
+                    })
+                    .catch(function() {
+                        method3();
+                    });
+                } catch(e) {
+                    method3();
+                }
             }
 
-            // Шаг 3: через corsproxy.io
-            function step3() {
-                var proxy2 = 'https://corsproxy.io/?' + encodeURIComponent(tgUrl);
-                fetch(proxy2, { method: 'GET' })
-                .then(function(r) { return r.json(); })
-                .then(function(j) {
-                    if (j && j.ok) { finish(true, null); }
-                    else { finish(false, 'Ошибка отправки'); }
-                })
-                .catch(function() {
-                    // Шаг 4: XMLHttpRequest без CORS как последний резерв
-                    step4();
-                });
+            // Метод 3: XMLHttpRequest POST (fallback для браузеров без fetch)
+            function method3() {
+                try {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', apiUrl, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.timeout = 15000;
+
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                try {
+                                    var result = JSON.parse(xhr.responseText);
+                                    if (result && result.ok) {
+                                        finish(true, null);
+                                        return;
+                                    }
+                                } catch(e) {}
+                            }
+                            method4();
+                        }
+                    };
+
+                    xhr.onerror = function() { method4(); };
+                    xhr.ontimeout = function() { method4(); };
+
+                    xhr.send(JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: text
+                    }));
+                } catch(e) {
+                    method4();
+                }
             }
 
-            // Шаг 4: XHR no-cors через Image (обходит любые блокировки)
-            function step4() {
-                var img = new Image();
-                img.onload = img.onerror = function() {
-                    // Запрос ушёл физически — считаем успехом
-                    finish(true, null);
-                };
-                img.src = tgUrl + '&_=' + Date.now();
-                setTimeout(function() {
-                    finish(true, null);
-                }, 5000);
+            // Метод 4: GET через Image (обходит любые CORS-ограничения)
+            function method4() {
+                try {
+                    var getUrl = apiUrl
+                        + '?chat_id=' + encodeURIComponent(CHAT_ID)
+                        + '&text=' + encodeURIComponent(text);
+
+                    var img = new Image();
+                    var imgDone = false;
+
+                    img.onload = img.onerror = function() {
+                        if (imgDone) return;
+                        imgDone = true;
+                        // Запрос ушёл физически, считаем успехом
+                        finish(true, null);
+                    };
+
+                    img.src = getUrl + '&_t=' + Date.now();
+
+                    // Подстраховка: если img не вызвал callback за 6 сек
+                    setTimeout(function() {
+                        if (!imgDone) {
+                            imgDone = true;
+                            finish(true, null);
+                        }
+                    }, 6000);
+                } catch(e) {
+                    finish(false, 'Все методы отправки не сработали');
+                }
             }
 
-            step1();
+            // Запускаем цепочку
+            method1();
         }
 
-        function submitForm(e) {
-            e.preventDefault();
-            var submitBtn = document.getElementById('submitBtn');
-            var originalText = submitBtn.textContent;
+        // =====================================================
+        // ОБРАБОТКА ФОРМЫ — через addEventListener (не inline)
+        // =====================================================
+        var contactForm = document.getElementById('contactForm');
+        var submitBtn = document.getElementById('submitBtn');
+        var nameInput = document.getElementById('nameInput');
+        var phoneInput = document.getElementById('phoneInput');
+        var emailInput = document.getElementById('emailInput');
+        var cityInput = document.getElementById('cityInput');
+        var timeInput = document.getElementById('timeInput');
+        var messageInput = document.getElementById('messageInput');
 
-            var data = {
-                name: document.getElementById('nameInput').value.trim(),
-                phone: document.getElementById('phoneInput').value.trim(),
-                email: document.getElementById('emailInput').value.trim(),
-                city: document.getElementById('cityInput').value.trim(),
-                time: document.getElementById('timeInput').value,
-                message: document.getElementById('messageInput').value.trim()
-            };
+        // Перехватываем и submit, и click на кнопке (для надёжности на мобильных)
+        contactForm.addEventListener('submit', handleFormSubmit);
+        submitBtn.addEventListener('click', function(e) {
+            // На некоторых мобильных click на button не вызывает submit формы
+            // Проверяем, не обработано ли уже
+            if (!submitBtn.disabled) {
+                handleFormSubmit(e);
+            }
+        });
 
-            if (!data.name || data.phone.length < 6) {
-                showToast('Заполните имя и телефон', 'error');
+        var formSubmitting = false;
+
+        function handleFormSubmit(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            // Защита от двойной отправки
+            if (formSubmitting) return;
+
+            var name = nameInput.value.trim();
+            var phone = phoneInput.value.trim();
+            var rawPhone = phone.replace(/\D/g, '');
+
+            // Валидация
+            if (!name) {
+                showToast('Пожалуйста, введите ваше имя', 'error');
+                nameInput.focus();
                 return;
             }
 
+            if (rawPhone.length < 11) {
+                showToast('Пожалуйста, введите корректный номер телефона', 'error');
+                phoneInput.focus();
+                return;
+            }
+
+            formSubmitting = true;
+            var originalText = submitBtn.textContent;
             submitBtn.disabled = true;
             submitBtn.textContent = 'ОТПРАВКА...';
 
+            var data = {
+                name: name,
+                phone: phone,
+                email: emailInput.value.trim(),
+                city: cityInput.value.trim(),
+                time: timeInput.value,
+                message: messageInput.value.trim()
+            };
+
             sendToTelegram(data, function(success, errorMsg) {
-                if (success) {
-                    showToast('Заявка отправлена! Айрат свяжется с вами в ближайшее время.', 'success');
-                    document.getElementById('contactForm').reset();
-                    document.getElementById('phoneInput').value = '+7 ';
-                } else {
-                    showToast('Ошибка: ' + (errorMsg || 'Неизвестная ошибка') + '. Позвоните по телефону.', 'error');
-                }
+                formSubmitting = false;
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
+
+                if (success) {
+                    showToast('Заявка отправлена! Айрат свяжется с вами в ближайшее время.', 'success');
+                    contactForm.reset();
+                    phoneInput.value = '+7 ';
+                } else {
+                    showToast('Не удалось отправить. Позвоните: +7 917 497-17-26', 'error');
+                }
             });
+
+            return false;
         }
 
         function showToast(msg, type) {
             var toast = document.getElementById('toast');
             toast.textContent = msg;
             toast.className = 'toast ' + (type || 'success');
+            // Принудительный reflow для анимации
+            void toast.offsetWidth;
             toast.classList.add('show');
             setTimeout(function() { toast.classList.remove('show'); }, 5000);
         }
 
-        // Smooth scroll
+        // Smooth scroll — через addEventListener
         document.querySelectorAll('a[href^="#"]').forEach(function(a) {
             a.addEventListener('click', function(e) {
-                e.preventDefault();
-                var target = document.querySelector(a.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
+                var href = a.getAttribute('href');
+                if (href && href.length > 1) {
+                    var target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
             });
         });
 
         // Только буквы для имени
-        document.getElementById('nameInput').addEventListener('input', function() {
+        nameInput.addEventListener('input', function() {
             this.value = this.value.replace(/[^a-zA-Zа-яА-ЯёЁ\s\-]/g, '');
         });
 
         // Только буквы для города
-        document.getElementById('cityInput').addEventListener('input', function() {
+        cityInput.addEventListener('input', function() {
             this.value = this.value.replace(/[^a-zA-Zа-яА-ЯёЁ\s\-]/g, '');
         });
 
-        // Phone mask
-        var phoneInput = document.getElementById('phoneInput');
-        phoneInput.addEventListener('input', function(e) {
-            var value = e.target.value.replace(/\D/g, '');
-            if (value.startsWith('7') || value.startsWith('8')) value = value.substring(1);
+        // =====================================================
+        // МАСКА ТЕЛЕФОНА — безопасная для мобильных
+        // =====================================================
+        phoneInput.value = '+7 ';
+
+        phoneInput.addEventListener('input', function() {
+            var value = this.value.replace(/\D/g, '');
+
+            // Убираем ведущую 7 или 8
+            if (value.length > 0 && (value[0] === '7' || value[0] === '8')) {
+                value = value.substring(1);
+            }
+
+            // Ограничиваем 10 цифрами
             value = value.substring(0, 10);
+
+            // Форматируем
             var formatted = '+7 ';
             if (value.length > 0) formatted += '(' + value.substring(0, 3);
             if (value.length >= 3) formatted += ') ' + value.substring(3, 6);
             if (value.length >= 6) formatted += '-' + value.substring(6, 8);
             if (value.length >= 8) formatted += '-' + value.substring(8, 10);
-            e.target.value = formatted;
+
+            this.value = formatted;
         });
+
         phoneInput.addEventListener('keydown', function(e) {
-            if (e.target.selectionStart <= 3 && (e.key === 'Backspace' || e.key === 'Delete')) e.preventDefault();
+            try {
+                if (this.selectionStart <= 3 && (e.key === 'Backspace' || e.key === 'Delete')) {
+                    e.preventDefault();
+                }
+            } catch(err) {
+                // selectionStart может бросить исключение на некоторых мобильных
+            }
         });
-        phoneInput.addEventListener('focus', function(e) {
-            if (e.target.value === '' || e.target.value === '+7') e.target.value = '+7 ';
-            setTimeout(function() { e.target.selectionStart = e.target.selectionEnd = e.target.value.length; }, 0);
+
+        phoneInput.addEventListener('focus', function() {
+            var self = this;
+            if (self.value === '' || self.value === '+7') {
+                self.value = '+7 ';
+            }
+            try {
+                setTimeout(function() {
+                    self.selectionStart = self.selectionEnd = self.value.length;
+                }, 10);
+            } catch(err) {}
         });
-        phoneInput.addEventListener('click', function(e) {
-            if (e.target.selectionStart < 3) e.target.selectionStart = e.target.selectionEnd = e.target.value.length;
+
+        phoneInput.addEventListener('click', function() {
+            try {
+                if (this.selectionStart < 3) {
+                    this.selectionStart = this.selectionEnd = this.value.length;
+                }
+            } catch(err) {}
         });
     </script>
 
